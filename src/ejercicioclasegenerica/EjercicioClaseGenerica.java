@@ -33,18 +33,15 @@ static private Supabase supabase = new Supabase("https://eddheowwvrmqrzgnioyu.su
 
         Pair<String, String> datosPersonales = new Pair<>(eps, fnacimiento);
 
-        Integer primero = persona.getFirst();
         
-        String segundo = persona.getSecond();
+ 
+        JSONArray personaJsonArray = new JSONArray("[{\"edad\":\"" + persona.getFirst() + "\", \"nombre\":\""+persona.getSecond()+"\"}]");
         
-        
-        JSONArray datosPersonalesJsonArray = new JSONArray();
-        datosPersonalesJsonArray.put(datosPersonales.getSecond());
-        datosPersonalesJsonArray.put(datosPersonales.getFirst());
-        
-        JSONArray personaJsonArray = new JSONArray("[{\"edad\":\"" + primero + "\", \"nombre\":\""+segundo+"\"}]");
+        JSONArray datosPersonalesJsonArray = new JSONArray("[{\"fecha_nacimiento\":\"" + datosPersonales.getSecond() + "\", \"eps\":\""+datosPersonales.getFirst()+"\"}]");
         
         supabase.from("persona").insert(personaJsonArray);
+        supabase.from("datosPersonales").insert(datosPersonalesJsonArray);
+              
     }
     
 }
